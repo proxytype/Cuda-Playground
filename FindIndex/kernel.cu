@@ -101,6 +101,7 @@ void executeGPU(int randomIndex) {
 
     findValueKernel << <blocksPerGrid, threadsPerBlock >> > (d_arr, randomIndex, numOfElements, d_result);
 
+    cudaDeviceSynchronize();
     // Copy the result from the device to host
     cudaMemcpy(&result, d_result, sizeof(int), cudaMemcpyDeviceToHost);
 
