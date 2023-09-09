@@ -8,6 +8,7 @@
 #include <Windows.h>
 #include <Wbemidl.h>
 #include <comutil.h>
+#include <random>
 
 #pragma comment(lib, "wbemuuid.lib")
 
@@ -352,25 +353,30 @@ int main(int argc, char* argv[]) {
         }
     }
 
+
+
     if (selectedIndex == -1) {
-        std::srand(static_cast<unsigned int>(std::time(nullptr)));
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<int> distribution(1, numOfElements);
+        selectedIndex = distribution(gen);
     }
     
 
     int* values = createArray();
     cudaCopyArray(values);
 
-    int randomIndex = rand() % numOfElements;
-    std::cout << "  Selected index: " << randomIndex << std::endl;
+    
+    std::cout << "  Selected index: " << selectedIndex << std::endl;
     std::cout << "__________________________________________________________" << std::endl;
     std::cout << "***** Execute CPU *****" << std::endl;
     std::cout << "" << std::endl;
     printHost();
-    executeCPU(values, randomIndex);
+    executeCPU(values, selectedIndex);
     std::cout << "***** Execute GPU *****" << std::endl;
     std::cout << "" << std::endl;
     printDevice();
-    executeGPU(randomIndex);
+    executeGPU(selectedIndex);
 
     delete[] values;
 
