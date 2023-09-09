@@ -353,8 +353,6 @@ int main(int argc, char* argv[]) {
         }
     }
 
-
-
     if (selectedIndex == -1) {
         std::random_device rd;
         std::mt19937 gen(rd());
@@ -362,11 +360,9 @@ int main(int argc, char* argv[]) {
         selectedIndex = distribution(gen);
     }
     
-
     int* values = createArray();
     cudaCopyArray(values);
 
-    
     std::cout << "  Selected index: " << selectedIndex << std::endl;
     std::cout << "__________________________________________________________" << std::endl;
     std::cout << "***** Execute CPU *****" << std::endl;
