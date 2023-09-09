@@ -1,4 +1,4 @@
-This C++ code appears to be a program designed to perform a comparison between CPU and GPU (CUDA) implementations for searching an array for a specific element. Below is an explanation of the key components and functionality of the code:
+This C++ code designed to perform a comparison between CPU and GPU (CUDA) implementations for searching an array for a specific element. Below is an explanation of the key components and functionality of the code:
 
 1. **Header Files and Libraries**:
    - The code includes various header files, such as `<iostream>`, `<thread>`, `<vector>`, and others, necessary for input/output operations, multithreading, and CUDA functionality.
