@@ -13,5 +13,5 @@ Comparison between CPU and GPU (CUDA) implementations for searching an array for
 [>>>](https://github.com/proxytype/Cuda-Playground/tree/main/FindIndex)
 
 ## VectorsHell
-difference between CPU and GPU for performing vector element-wise operations
+Difference between CPU and GPU for performing vector element-wise operations
 [>>>]([https://github.com/proxytype/Cuda-Playground/tree/main/FindIndex](https://github.com/proxytype/Cuda-Playground/tree/main/VectorsHell))
