@@ -5,7 +5,7 @@ Main repository for exploring Cuda.
 Before running the code, ensure you have the following prerequisites:
 
 * An NVIDIA GPU with CUDA support.
-* The CUDA Toolkit installed on your system.
+* The CUDA Toolkit installed on your system. (11.8)
 * A C++ compiler that supports CUDA, such as nvcc.
 
 ## FindIndex
