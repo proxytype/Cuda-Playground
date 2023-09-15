@@ -1,91 +1,114 @@
-Certainly, here's another version of the README.md file for your code:
+This code appears to be a C++ program that compares the performance of CPU and GPU in counting the number of strings in an array that start with a specified substring. Let's break down the code step by step:
 
----
+### Include Statements
+```cpp
+#include "cuda_runtime.h"
+#include "device_launch_parameters.h"
+#include <stdio.h>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+#include <algorithm>
+#include <execution>
+#include <chrono>
+#include <atomic>
+#include <thread>
+#include <mutex>
+#include <Windows.h>
+#include <Wbemidl.h>
+#include <comutil.h>
 
-# String Furious - CPU vs GPU
+#pragma comment(lib, "wbemuuid.lib")
+```
 
-![GitHub stars](https://img.shields.io/github/stars/yourusername/your-repo.svg?style=social)
-![GitHub forks](https://img.shields.io/github/forks/yourusername/your-repo.svg?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/yourusername/your-repo.svg?style=social)
-![GitHub followers](https://img.shields.io/github/followers/yourusername.svg?style=social)
+These lines include various C++ libraries and headers that are needed for different functionalities in the program. These libraries are used for GPU computing, string manipulation, timing, multi-threading, and Windows Management Instrumentation (WMI) access.
 
-## Overview
+### Constants
+```cpp
+const int DEFAULT_VECTOR_STRING_LENGTH = 1000;
+const int DEAFULT_NUM_STRINGS = 100000;
+const int DEAFULT_NUM_THREADS = 4;
+const int DEAFULT_CUDA_PER_BLOCK = 128;
+```
 
-String Furious is a C++ program designed to compare the performance of CPU and GPU in counting the number of strings in an array that start with a specified substring. The program generates a random array of strings and provides options to perform the counting operation using CPU threads or CUDA threads on a GPU. It measures the execution time for both CPU and GPU operations and reports the results.
+These constants define default values for parameters used in the program, such as the maximum length of a random string, the number of random strings to generate, the number of CPU threads, and the number of CUDA threads per block.
 
-## Table of Contents
+### CUDA Device Function
+```cpp
+__device__ int customStrncmp(const char* s1, const char* s2, int n) {
+    // Custom string comparison function for CUDA
+    // Compares the first 'n' characters of two strings
+    // Returns 0 if equal, positive if s1 > s2, negative if s1 < s2
+}
+```
 
-- [Introduction](#introduction)
-- [Prerequisites](#prerequisites)
-- [Usage](#usage)
-- [Options](#options)
-- [Building](#building)
-- [License](#license)
+This is a custom device function for CUDA (a function that can be executed on the GPU). It compares two strings up to a specified length and returns the result of the comparison.
 
-## Introduction
+### CUDA Kernel Function
+```cpp
+__global__ void countStringsWithSubstringKernel(const char* strings, const char* substring, int* results, int numStrings, int substringLength, int _stringlength) {
+    // CUDA kernel function for counting strings with a specified substring
+    // Each thread processes one string and updates the 'results' array if it matches the 'substring'
+}
+```
 
-String Furious is a versatile tool for evaluating the computational power of CPUs and GPUs when dealing with string operations. By generating random strings and searching for a specific substring, it allows users to assess the performance gap between CPU and GPU processing.
+This is a CUDA kernel function. It is designed to be executed on the GPU and counts the number of strings in an array that start with a specified substring. Each thread processes one string from the array and updates a result variable if the string matches the substring.
 
-## Prerequisites
+### Memory Management Functions
+```cpp
+void allocateCUDAMemory(const std::vector<std::string>& strings, const std::string& substring, char*& d_strings, char*& d_substring, int*& d_results) {
+    // Allocates memory on the GPU and copies data from the CPU to the GPU
+}
 
-Before using String Furious, ensure you have the following prerequisites installed:
+void freeCUDAMemory(char* d_strings, char* d_substring, int* d_results) {
+    // Frees memory on the GPU
+}
+```
 
-- C++ compiler with C++11 support or later.
-- NVIDIA GPU with CUDA support (for GPU acceleration).
-- CUDA Toolkit installed (for GPU acceleration).
-- CMake for building the project.
+These functions are responsible for allocating and freeing memory on the GPU for storing strings, substrings, and results. They also copy data from the CPU to the GPU.
 
-## Usage
+### String Generation Functions
+```cpp
+std::string generateRandomString(int length) {
+    // Generates a random string of the specified length
+}
 
-Follow these steps to utilize String Furious:
+std::vector<std::string> generateRandomStringArray(int numStrings) {
+    // Generates an array of random strings with a specified number of strings
+}
+```
 
-1. Clone this repository to your local machine:
+These functions are used to generate random strings and random arrays of strings. The generated strings are composed of uppercase and lowercase letters.
 
-   ```bash
-   git clone https://github.com/yourusername/your-repo.git
-   cd your-repo
-   ```
+### CPU String Counting Function
+```cpp
+int countStringsWithSubstring(const std::vector<std::string>& strings, const std::string& substring, int start, int end) {
+    // Counts the number of strings in a range that start with a specific substring (CPU)
+}
+```
 
-2. Build the project using CMake:
+This function counts the number of strings in a specified range that start with a specific substring. It is intended to be executed on the CPU.
 
-   ```bash
-   mkdir build
-   cd build
-   cmake ..
-   cmake --build .
-   ```
+### Parallel CPU String Counting Function
+```cpp
+int parallelCount(const std::vector<std::string>& strings, const std::string& substring) {
+    // Counts the number of strings starting with a specific substring using multiple CPU threads
+}
+```
 
-3. Execute the String Furious program with your preferred options:
+This function divides the task of counting strings into multiple threads to take advantage of multi-core CPUs and parallelism.
 
-   ```bash
-   ./StringFurious [options]
-   ```
+### Main Function
+```cpp
+int main(int argc, char* argv[]) {
+    // Main program logic
+}
+```
 
-## Options
+The `main` function is the entry point of the program. It parses command-line arguments, generates random strings, measures the execution time of CPU and GPU operations, and prints the results along with system information.
 
-String Furious offers several command-line options for customization:
+The program provides various command-line options to customize its behavior, such as the number of CPU threads, the number of CUDA threads, the number of strings to generate, the substring to search for, and more.
 
-- `-t <CPU threads>`: Set the number of CPU threads to use (default: 4).
-- `-c <Cuda threads per block>`: Specify the number of CUDA threads per block (default: 128).
-- `-s <Number of strings to create>`: Define the number of random strings to generate (default: 10000).
-- `-l <string length>`: Adjust the maximum length of a random string (default: 100).
-- `-m <substring to search>`: Specify the substring to search for in the generated strings.
-- `-h`: Display the menu with available options.
-
-## Building
-
-String Furious can be built using CMake. Ensure you have CMake installed and follow the usage instructions above to build the project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## About
-
-String Furious is developed by Your Name. Visit our website at [www.rudenetworks.com](https://www.rudenetworks.com).
-
-If you encounter any issues or have questions, please [create an issue](https://github.com/yourusername/your-repo/issues) on GitHub.
-
-Thank you for using String Furious!
-
----
+Overall, this program is designed to benchmark and compare the performance of CPU and GPU in counting strings that start with a specified substring. It generates random strings, counts them using CPU and GPU parallelism, and reports the execution times and results.
