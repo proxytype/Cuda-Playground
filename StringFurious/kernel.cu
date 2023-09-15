@@ -12,7 +12,6 @@
 #include <chrono>
 #include <atomic>
 #include <thread>
-#include <mutex>
 #include <Windows.h>
 #include <Wbemidl.h>
 #include <comutil.h>
