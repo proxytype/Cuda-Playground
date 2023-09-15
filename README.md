@@ -17,5 +17,5 @@ Difference between CPU and GPU for performing vector element-wise operations.
 [>>>](https://github.com/proxytype/Cuda-Playground/tree/main/VectorsHell)
 
 ## StringFurious
-compare the performance of CPU and GPU in counting strings that start with a specified substring.
+Compare the performance of CPU and GPU in counting strings that start with a specified substring.
 [>>>](https://github.com/proxytype/Cuda-Playground/tree/main/StringFurious)
