@@ -15,7 +15,6 @@ This code appears to be a C++ program that compares the performance of CPU and G
 #include <chrono>
 #include <atomic>
 #include <thread>
-#include <mutex>
 #include <Windows.h>
 #include <Wbemidl.h>
 #include <comutil.h>
